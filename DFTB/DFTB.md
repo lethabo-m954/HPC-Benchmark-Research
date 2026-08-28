@@ -82,6 +82,6 @@ At the beginning of the job, the software must read these files. If you are work
 The main advantage of DFTB is that it provides a high quality, quantum mechanical description of molecules and materials at a cheaper price than the standard DFT.
 Other advantages include:
 - **Massive Speed:** DFTB is 100 to 1000 times faster than the standard DFT. turning simulations that would take weeks to months into calculations take take minutes to hours.
--**Larger System Sizes:** It allows researchers to simulate a system that contain thousands of atom that would be impossible to run with your traditional quantum chemistry methos
+- **Larger System Sizes:** It allows researchers to simulate a system that contain thousands of atom that would be impossible to run with your traditional quantum chemistry methos
 - **Extended Timescales:** Because each individual calculation is fast, it allows molecular dynamics simulations to run for a longer period of time. This allows scientists and researchers to watch the chemical reactions and physical transitions unfold in real time
 
