@@ -17,7 +17,7 @@ In supercomputing "string scaling" measures how fast a computer can solve a fixe
 ### 1. To Test "Strong Scaling" to push Limits
 
 - **The Benchmark Value** The Lattice Boltzmann Method relies on local physics calculations, which is based on collisions happening inside localized pixel clusters.
-- **The Test* Computer scientists use this benchmark to see at what point a supercomputer's network will choke on communication. They test using up to 300 000+ CPU cores at once to stress-test high-speed interconnect networks.
+- **The Test** Computer scientists use this benchmark to see at what point a supercomputer's network will choke on communication. They test using up to 300 000+ CPU cores at once to stress-test high-speed interconnect networks.
 
  ### 2. To Optimise Hardware and Software Customisation
   When a new supercomputer is built, the default settings are rarely optimal
