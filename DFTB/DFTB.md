@@ -8,10 +8,10 @@ It bridges the gap between highly accurate but slow methods like the standard DF
 This quantum simulation method is used in the fields of physics, chemistry and material science to simulate the behaviour of materials and chemical reactions at the atomic scale.
 
 Other applications that the DFTB is common in is the following:
--**Nanotechnology:** Simulating the structure and electrical properties of carbon nanotubes, 2D materials
--**Materials Science:** Studying defects in semiconductors materials, surface reactions in catalysts and the developments of polymers and batteries
+- **Nanotechnology:** Simulating the structure and electrical properties of carbon nanotubes, 2D materials
+- **Materials Science:** Studying defects in semiconductors materials, surface reactions in catalysts and the developments of polymers and batteries
 Biochemistry: Modeling large biomolecules like DNA and proteins to understand how they interact with specific drugs
--**Chemical Reactions:** Simulating complex real-time processes and combustion reactions over a long time frame
+- **Chemical Reactions:** Simulating complex real-time processes and combustion reactions over a long time frame
 ## 3. When is DFTB used?
 DFTB is used when a simulation needs quantum mechanical accuracy but the standard Density Functional Theory (DFT) is too slow or computationally expensive to handle the job.
 
