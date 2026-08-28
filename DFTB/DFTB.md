@@ -25,9 +25,9 @@ Certain conditions may be:
 In order for you to run a DFTB calculation, you will need two primary inputs: the physical structure of your system and a set of pre-calculated parameters that define how the atoms interact
 
 ### 1. The Atomic Structure
--**Atomic Coordinates:** This is the exact position that every atom in 3D space
--**Chemical Composition:** This is the types of elements that are present
--**Boundary Conditions:** Whether the system is a single isolated molecule or a repeating single structure
+- **Atomic Coordinates:** This is the exact position that every atom in 3D space
+- **Chemical Composition:** This is the types of elements that are present
+- **Boundary Conditions:** Whether the system is a single isolated molecule or a repeating single structure
 
 ### 2. Slater-Koster Parameter
 Unlike your standard DFT, which calculates the electron interactions from the beginning, DFTB relies on pre calculated data tables which are called Slater-Koster files(.skf)
@@ -37,9 +37,9 @@ This can be download the parameter set for the specific elements in your systems
 
 ### 3. Calculation Setting(The input file)
 In this case, you provide instructions to the DFTB software specifying:
--**The task type-** this specifies whether you want a single energy calculations, a structural optimizations or a molecular dynamics run
--**Change handling:** Here you specify if you want self-consistent charges such as SCC-DFTB, which is necessary if your system has polar bonds or shifting electrical charges
--**Total Charge/Spin:** This is the overall electrical charge of the molecule and its electronic spin state
+- **The task type-** this specifies whether you want a single energy calculations, a structural optimizations or a molecular dynamics run
+- **Change handling:** Here you specify if you want self-consistent charges such as SCC-DFTB, which is necessary if your system has polar bonds or shifting electrical charges
+- **Total Charge/Spin:** This is the overall electrical charge of the molecule and its electronic spin state
 
 ## 5. What happens during a DFTB calculation?
 During a DFTB calculation, the software will executes a sequence of mathematical approximations to solve something known as the Schrodinger equation and determine the energy and electronics properties of your system.
@@ -52,17 +52,17 @@ Setting up the Quantum Framework: The software builds a simplified Hamiltonian m
 **Applying the Tight-Binding Approximation-** The software assumes that the electrons remain tightly bound to their host atoms. Because of this, it will only calculate interactions between the atom and its closest neighbours, treating the distance atoms as having zero electronic overlap. This skills helps to reduce the size of the math problem and also reduces the amount of time involved in the process.
 ### 3. The Self-Consistent Charge (SCC) Loop
 If your system has polar bonds like the bond in water, charge shift between atom. The software resolves this using an iterative loop:
-The loop makes an initial guess of the atomic charges
-The loop computes the electrostatic repulsion or attraction caused by these charges
-The loop adjusts the matrix, re-calculates the charges and repeats this loop until the charges stop lopping. This process is called reaching convergence
+- The loop makes an initial guess of the atomic charges
+- The loop computes the electrostatic repulsion or attraction caused by these charges
+- The loop adjusts the matrix, re-calculates the charges and repeats this loop until the charges stop lopping. This process is called **reaching convergence**
 ### 4. Evaluating Total Energy and Forces
 Once the electronic structure is solved, the software calculates the following
 Total Energy, which is the final quantum mechanical energy of the current atomic layout
 Forces, which will be the direction and strength of the push or pull effect on every individual atom
 ### 5. Updating the Structure (The final Output)
 Depending on the settings of your system, the software finishes the calculations by moving the atoms based on the force that has been calculated
--**Geometry Optimization:** It moves the atoms slightly to lower the forces experienced and repeats the whole process again until the molecule reaches it most stable and relaxed shape
--**Molecular Dynamics:** This applied Newton's Laws of Motion to advance the atoms forward in time by a tiny fraction of a second, simulating how the molecules vibrate and react in real-time
+- **Geometry Optimization:** It moves the atoms slightly to lower the forces experienced and repeats the whole process again until the molecule reaches it most stable and relaxed shape
+- **Molecular Dynamics:** This applied Newton's Laws of Motion to advance the atoms forward in time by a tiny fraction of a second, simulating how the molecules vibrate and react in real-time
 
 ## 6. What to focus on when running the benchmark
 When running this benchmark, the primary goal is to find the "sweet spot" where the software runs as fast as possible without wasting expensive computational resources
@@ -81,7 +81,7 @@ At the beginning of the job, the software must read these files. If you are work
 ## 7. Advantages
 The main advantage of DFTB is that it provides a high quality, quantum mechanical description of molecules and materials at a cheaper price than the standard DFT.
 Other advantages include:
--**Massive Speed:** DFTB is 100 to 1000 times faster than the standard DFT. turning simulations that would take weeks to months into calculations take take minutes to hours.
+- **Massive Speed:** DFTB is 100 to 1000 times faster than the standard DFT. turning simulations that would take weeks to months into calculations take take minutes to hours.
 -**Larger System Sizes:** It allows researchers to simulate a system that contain thousands of atom that would be impossible to run with your traditional quantum chemistry methos
--**Extended Timescales:** Because each individual calculation is fast, it allows molecular dynamics simulations to run for a longer period of time. This allows scientists and researchers to watch the chemical reactions and physical transitions unfold in real time
+- **Extended Timescales:** Because each individual calculation is fast, it allows molecular dynamics simulations to run for a longer period of time. This allows scientists and researchers to watch the chemical reactions and physical transitions unfold in real time
 
