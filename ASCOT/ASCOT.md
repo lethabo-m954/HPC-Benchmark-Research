@@ -40,7 +40,6 @@ If you will be running the benchmark on a clustered supercomputer, you will leve
 In HPC, ASCOT5 is used to test and evaluate the multi-core CPU processing efficiency of a supercomputer hardware. It also plays a role in fusion plasma physics as it serves as an orbit-following Monte Carlo code to model fast ions, their impurities and runaway electrons
 ## 5. What goes into the calculation?
 ASCOTS's calculation goes into simulating the time evolution of the distribution function of minority particle species.
-
 Because this application operates as a **test-particle Monte Carlo code**, the calculation loops through millions of independent "marker" particles.
 
 ### 1. The Data Inputs Required
@@ -62,7 +61,6 @@ The computation will track these particles until they slow down completely. Afte
 - Phase-Space Distributions - 1D-6D density distributions of the fast ions
 - Neoclassical Transport Coefficients - This is the rate of particle diffusion across the magnetic fields
 - Wall Loads - This is the exact location, quantity and heat flux energy of particles slamming into the 3D reactor wall
-- 
 ## 6. What to focus on when running the benchmark?
 When doing HPC benchmarking and you decide to run the ASCOT5 benchmark, your focus should be on how efficiently the software scales the hardware and how quickly it completes its physics. The primary goal should be to maximize throughput and eliminate hardware bottlenecks.
 
