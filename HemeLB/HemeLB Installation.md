@@ -136,6 +136,12 @@ Example:
   </analysis>
 </hemelbsettings>
 ```
+> **Note:** Modify the following settings according to your experiment:
+>
+> 1. Change `<geometry>` to point to your `.gmy` file.
+> 2. Adjust `<timesteps>` for the required simulation length.
+> 3. Add or remove `<extractor>` entries to control what data is written out.
+
 
 ### Simulation Files
 
