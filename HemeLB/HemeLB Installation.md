@@ -21,17 +21,20 @@ sudo apt install -y build-essential cmake git \
     libboost-all-dev libtinyxml2-dev \
     libparmetis-dev libmetis-dev
 ```
+### What are these dependencies?
+
+| Package | Purpose |
+|---|---|
+| `build-essential` | Provides essential tools for compiling software |
+| `cmake` | Configures the HemeLB build |
+| `git` | Downloads the HemeLB source code |
+| `libboost-all-dev` | Provides Boost C++ libraries |
+| `libtinyxml2-dev` | Provides XML parsing functionality |
+| `libparmetis-dev` | Provides ParMETIS development libraries |
+
+---
 
 OpenMPI and OpenBLAS were already installed as part of the HPC environment and therefore do not need to be installed again.
-
-Check that the required software is available:
-
-```bash
-gcc --version
-cmake --version
-git --version
-mpirun --version
-```
 
 ---
 
