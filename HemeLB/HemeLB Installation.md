@@ -18,9 +18,9 @@ sudo apt install -y build-essential cmake git \
     libopenmpi-dev openmpi-bin
 ```
 Executable:
-'''bash
+```bash
 HemeLB/build/bin/hemelb
-'''
+```
 ### What are these dependencies?
 
 | Package | Purpose |
@@ -44,3 +44,38 @@ Move into the HemeLB directory:
 ```bash
 cd HemeLB
 ```
+### What does the above command do?
+"git clone" command downloads the HemeLB source code from the GitHub repository.
+"cd HemeLB" command moves you into the directory containing the downloaded HemeLB  code.
+
+## 3.Compile HemeLB
+
+Once HemeLB has been downloaded, create a separate directory for the comiled files
+
+### Create the build directory
+```bash
+mkdir build && cd build
+```
+
+Keeping the build files separate from the source code makes the project easier to manage.
+
+### Configure the build with CMake
+
+```bash
+cmake .. -DCMAKE_BUILD_TYPE=Release
+```
+### Compile HemeLB
+
+```bash
+make -j$(nproc)
+```
+
+After `make` finishes, check that the compilation completed successfully.
+
+```bash
+ls
+```
+
+Look for the HemeLB executable and other generated build files.
+
+---
