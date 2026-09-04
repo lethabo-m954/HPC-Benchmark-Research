@@ -31,6 +31,7 @@ sudo apt install -y build-essential cmake git \
 | `libboost-all-dev` | Provides Boost C++ libraries |
 | `libtinyxml2-dev` | Provides XML parsing functionality |
 | `libparmetis-dev` | Provides ParMETIS development libraries |
+| `libmetis-dev` | Provides METIS development libraries. |
 
 ---
 
