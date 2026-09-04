@@ -957,59 +957,84 @@ Important measurements include:
 
 ---
 
-# 19. Common Parameters to Check Before Running
+# 19. Recording and Interpreting Benchmark Results
 
-Before starting a simulation, check:
+Benchmark results should be recorded after each HemeLB benchmark run. This makes it possible to compare different hardware configurations, numbers of MPI processes, and compute nodes.
 
-### Geometry
+A benchmark can be considered to have produced **good results** when the simulation completes successfully and the system demonstrates:
+
+- High MLUPS
+- Low runtime
+- Good scaling when additional processors are added
+- High scaling efficiency
+- Good load balance between MPI processes
+- Low communication overhead
+- Efficient memory usage
+- Low unnecessary I/O overhead
+
+### What Indicates a Good Result?
+
+A good HemeLB benchmark result should generally show:
+
+**1. Lower runtime**
+
+The simulation completes in less time while solving the same problem.
+
+**2. Higher MLUPS**
+
+A higher MLUPS value indicates that more lattice updates are being processed per second.
+
+**3. Good scaling**
+
+When additional processors are added, the runtime should decrease and performance should improve.
+
+**4. High scaling efficiency**
+
+The closer the scaling efficiency is to 100%, the more effectively the additional processors are being used.
+
+**5. Good load balance**
+
+The computational work should be distributed relatively evenly between MPI processes.
+
+**6. Controlled I/O**
+
+The amount of data written should not unnecessarily dominate the total runtime.
+
+### Important
+
+There is **no single MLUPS value that can be considered "good" for every HemeLB benchmark**.
+
+A good result depends on factors such as:
+
+- Problem size
+- Geometry
+- CPU architecture
+- Number of CPU cores
+- Number of compute nodes
+- Memory bandwidth
+- Network interconnect
+- MPI configuration
+- Compiler and build options
+
+Therefore, benchmark results should primarily be compared using the **same problem and configuration**.
+
+For example:
 
 ```text
-Is the correct .gmy file being used?
+Same geometry
+      +
+Same input parameters
+      +
+Same number of timesteps
+      +
+Same output configuration
+      ↓
+Compare different HPC configurations
+      ↓
+Compare runtime, MLUPS and scaling
 ```
 
-### Velocity
-
-```text
-Is the velocity profile appropriate for the experiment?
-```
-
-### Units
-
-```text
-Are the values using the required SI units?
-```
-
-### Timesteps
-
-```text
-Is the number of timesteps sufficient for the required simulation?
-```
-
-### Output Frequency
-
-```text
-Is data being written too frequently?
-```
-
-### Extractors
-
-```text
-Are the required quantities being extracted?
-```
-
-### MPI Processes
-
-```text
-Is the number of MPI processes appropriate for the available hardware?
-```
-
-### Storage
-
-```text
-Is enough storage available for the expected output?
-```
-
----
+The best-performing configuration is generally the one that achieves the required simulation accuracy while providing **high performance, good scaling, balanced workload distribution, and reasonable I/O overhead**.
 
 # 20. HemeLB Files at a Glance
 
