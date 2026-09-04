@@ -1,12 +1,30 @@
 # HemeLB Installation, Compilation and Running Guide
 
-This guide explains how to download, compile and run HemeLB on an HPC system.
+This guide explains how to install the required dependencies, download HemeLB, compile the source code, and run a HemeLB simulation on an HPC system.
 
-## 1. Prerequisites
+## 1. Update the System
 
-The HPC system already has the required HPC software installed, including OpenMPI, OpenBLAS, and other libraries used for HPC applications.
+Update the system package list:
 
-Check the required tools:
+```bash
+sudo apt update
+```
+
+---
+
+## 2. Install HemeLB Dependencies
+
+Install the basic development tools and libraries required to build HemeLB:
+
+```bash
+sudo apt install -y build-essential cmake git \
+    libboost-all-dev libtinyxml2-dev \
+    libparmetis-dev libmetis-dev
+```
+
+OpenMPI and OpenBLAS were already installed as part of the HPC environment and therefore do not need to be installed again.
+
+Check that the required software is available:
 
 ```bash
 gcc --version
@@ -17,7 +35,7 @@ mpirun --version
 
 ---
 
-## 2. Clone HemeLB
+## 3. Clone HemeLB
 
 Download the HemeLB source code:
 
@@ -33,7 +51,7 @@ cd hemelb
 
 ---
 
-## 3. Compile HemeLB
+## 4. Compile HemeLB
 
 Create a build directory:
 
@@ -42,13 +60,13 @@ mkdir build
 cd build
 ```
 
-Configure HemeLB using CMake:
+Configure the build:
 
 ```bash
 cmake .. -DCMAKE_BUILD_TYPE=Release
 ```
 
-Compile the source code:
+Compile HemeLB:
 
 ```bash
 make -j$(nproc)
@@ -56,7 +74,7 @@ make -j$(nproc)
 
 ---
 
-## 4. Prepare the Simulation
+## 5. Prepare the Simulation
 
 Create a directory for the simulation:
 
@@ -73,8 +91,6 @@ test_case/
 └── geometry.gmy
 ```
 
-### Input Files
-
 | File | Purpose |
 |---|---|
 | `input.xml` | Contains the simulation configuration |
@@ -82,7 +98,7 @@ test_case/
 
 ---
 
-## 5. Run HemeLB
+## 6. Run HemeLB
 
 Run HemeLB using MPI:
 
@@ -93,23 +109,25 @@ mpirun -n 4 hemelb -in input.xml -out ./output/
 Where:
 
 - `-n 4` specifies 4 MPI processes.
-- `-in input.xml` specifies the input file.
-- `-out ./output/` specifies where the simulation results are saved.
+- `-in input.xml` specifies the simulation input file.
+- `-out ./output/` specifies the output directory.
 
 ---
 
-## 6. HemeLB Workflow
+## 7. HemeLB Workflow
 
 ```text
-Clone HemeLB
+Update system
      ↓
-Create build directory
+Install dependencies
+     ↓
+Clone HemeLB
      ↓
 Configure with CMake
      ↓
-Compile
+Compile HemeLB
      ↓
-Prepare input.xml and geometry.gmy
+Prepare simulation files
      ↓
 Run with MPI
      ↓
