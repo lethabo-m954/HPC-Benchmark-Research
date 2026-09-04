@@ -86,38 +86,78 @@ mkdir -p ~/hemelb_runs/test_case
 cd ~/hemelb_runs/test_case
 ```
 
-A simulation directory contains the required input files:
+A simulation directory contains the files required to configure and run a HemeLB simulation.
+
+For example:
 
 ```text
 test_case/
+├── simulation.dat
 ├── input.xml
 └── geometry.gmy
 ```
 
+### Simulation Files
+
 | File | Purpose |
 |---|---|
-| `input.xml` | Contains the simulation configuration |
-| `geometry.gmy` | Contains the computational geometry |
+| `simulation.dat` | Contains the parameters and settings required for the simulation. |
+| `input.xml` | Contains the configuration information used by the simulation. |
+| `geometry.gmy` | Contains the computational geometry used by HemeLB. |
+
+### `.dat` File
+
+The `.dat` file is a simulation input file. It contains parameters and settings that define how the HemeLB simulation should be performed.
+
+The `.dat` file must be available in the appropriate simulation directory before running the simulation.
+
+Copy the `.dat` file into the simulation directory:
+
+```bash
+cp /path/to/simulation.dat ~/hemelb_runs/test_case/
+```
+
+Replace `/path/to/simulation.dat` with the actual location of the `.dat` file.
+
+Check that the file has been copied successfully:
+
+```bash
+ls
+```
+
+The `ls` command lists the files in the current directory. The `.dat` file should appear in the list.
+
+> **Note:** The exact files required for a simulation depend on the HemeLB version and the simulation setup being used.
 
 ---
 
 ## 6. Run HemeLB
 
-Run HemeLB using MPI:
+Once HemeLB has been compiled and the required simulation files have been prepared, the simulation can be run using MPI.
+
+Example:
 
 ```bash
 mpirun -n 4 hemelb -in input.xml -out ./output/
 ```
 
-Where:
+### Command Explanation
 
-- `-n 4` specifies 4 MPI processes.
-- `-in input.xml` specifies the simulation input file.
-- `-out ./output/` specifies the output directory.
+| Command/Option | Purpose |
+|---|---|
+| `mpirun` | Starts the HemeLB program using MPI for parallel execution. |
+| `-n 4` | Specifies that 4 MPI processes should be used. |
+| `hemelb` | Runs the HemeLB executable. |
+| `-in input.xml` | Specifies the input configuration file. |
+| `-out ./output/` | Specifies the directory where the simulation output should be stored. |
+
+MPI allows the HemeLB simulation to run across multiple processes at the same time. This is important for HPC systems because simulations can be distributed across multiple CPU cores or compute nodes.
 
 ---
 
 ## 7. HemeLB Workflow
+
+The general HemeLB workflow is:
 
 ```text
 Update system
@@ -126,13 +166,35 @@ Install dependencies
      ↓
 Clone HemeLB
      ↓
+Create build directory
+     ↓
 Configure with CMake
      ↓
 Compile HemeLB
      ↓
-Prepare simulation files
+Prepare simulation directory
      ↓
-Run with MPI
+Add simulation files
      ↓
-View output
+Prepare .dat file
+     ↓
+Run HemeLB with MPI
+     ↓
+View simulation output
 ```
+
+## Summary
+
+The main steps for installing and running HemeLB are:
+
+1. Update the system package list.
+2. Install the required HemeLB dependencies.
+3. Clone the HemeLB source code from GitHub.
+4. Create a build directory.
+5. Configure HemeLB using CMake.
+6. Compile HemeLB using `make`.
+7. Create a directory for the simulation.
+8. Prepare the required simulation files.
+9. Place the required `.dat` file in the simulation directory.
+10. Run HemeLB using MPI.
+11. Check the simulation output.
