@@ -142,6 +142,20 @@ Example:
 > 2. Adjust `<timesteps>` for the required simulation length.
 > 3. Add or remove `<extractor>` entries to control what data is written out.
 
+### `geometry.gmy`
+
+The `geometry.gmy` file contains the computational geometry used by the HemeLB simulation.
+
+The `.gmy` file is normally **not modified manually**. It is generated from the required geometry and then referenced in the `input.xml` file.
+
+For example, in `input.xml`:
+
+```xml
+<geometry>geometry.gmy</geometry>
+```
+
+> **Note:** If you need to use a different geometry, generate a new `.gmy` file from the required geometry and update the `<geometry>` entry in `input.xml` to point to the new file.
+
 
 ### Simulation Files
 
