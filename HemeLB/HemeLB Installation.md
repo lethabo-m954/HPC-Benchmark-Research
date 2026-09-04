@@ -9,3 +9,38 @@ Run:
 ```bash
 sudo apt update
 ```
+
+### Install required dependencies
+```bash
+sudo apt install -y build-essential cmake git \
+    libboost-all-dev libtinyxml2-dev \
+    libparmetis-dev libmetis-dev \
+    libopenmpi-dev openmpi-bin
+```
+Executable:
+'''bash
+HemeLB/build/bin/hemelb
+'''
+### What are these dependencies?
+
+| Package | Purpose |
+|---|---|
+| `build-essential` | Provides essential tools for compiling software |
+| `cmake` | Configures the HemeLB build |
+| `git` | Downloads the HemeLB source code |
+| `libboost-all-dev` | Provides Boost C++ libraries |
+| `libtinyxml2-dev` | Provides XML parsing functionality |
+| `libparmetis-dev` | Provides ParMETIS development libraries |
+| `libmetis-dev` | Provides METIS development libraries |
+| `libopenmpi-dev` | Provides OpenMPI development files |
+| `openmpi-bin` | Provides MPI executables such as `mpirun` |
+
+---
+## 2. Clone HemeLB
+```bash
+git clone https://github.com/UCL/HemeLB.git
+```
+Move into the HemeLB directory:
+```bash
+cd HemeLB
+```
