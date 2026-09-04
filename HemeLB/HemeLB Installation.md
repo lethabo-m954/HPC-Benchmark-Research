@@ -1,81 +1,117 @@
 # HemeLB Installation, Compilation and Running Guide
 
-This guide explains how to install the required dependencies, download HemeLB, compile the source code, and prepare HemeLB to run.
+This guide explains how to download, compile and run HemeLB on an HPC system.
 
-## 1. Install Dependencies
-Before installing HemeLB, update the system and install the required development tools and libraries
-### Update the system
-Run:
-```bash
-sudo apt update
-```
+## 1. Prerequisites
 
-### Install required dependencies
-```bash
-sudo apt install -y build-essential cmake git \
-    libboost-all-dev libtinyxml2-dev \
-    libparmetis-dev libmetis-dev \
-    libopenmpi-dev openmpi-bin
-```
-Executable:
-```bash
-HemeLB/build/bin/hemelb
-```
-### What are these dependencies?
+The HPC system already has the required HPC software installed, including OpenMPI, OpenBLAS, and other libraries used for HPC applications.
 
-| Package | Purpose |
-|---|---|
-| `build-essential` | Provides essential tools for compiling software |
-| `cmake` | Configures the HemeLB build |
-| `git` | Downloads the HemeLB source code |
-| `libboost-all-dev` | Provides Boost C++ libraries |
-| `libtinyxml2-dev` | Provides XML parsing functionality |
-| `libparmetis-dev` | Provides ParMETIS development libraries |
-| `libmetis-dev` | Provides METIS development libraries |
-| `libopenmpi-dev` | Provides OpenMPI development files |
-| `openmpi-bin` | Provides MPI executables such as `mpirun` |
+Check the required tools:
+
+```bash
+gcc --version
+cmake --version
+git --version
+mpirun --version
+```
 
 ---
+
 ## 2. Clone HemeLB
+
+Download the HemeLB source code:
+
 ```bash
-git clone https://github.com/UCL/HemeLB.git
+git clone https://github.com/hemelb-codes/hemelb.git
 ```
+
 Move into the HemeLB directory:
+
 ```bash
-cd HemeLB
-```
-### What does the above command do?
-"git clone" command downloads the HemeLB source code from the GitHub repository.
-"cd HemeLB" command moves you into the directory containing the downloaded HemeLB  code.
-
-## 3.Compile HemeLB
-
-Once HemeLB has been downloaded, create a separate directory for the comiled files
-
-### Create the build directory
-```bash
-mkdir build && cd build
+cd hemelb
 ```
 
-Keeping the build files separate from the source code makes the project easier to manage.
+---
 
-### Configure the build with CMake
+## 3. Compile HemeLB
+
+Create a build directory:
+
+```bash
+mkdir build
+cd build
+```
+
+Configure HemeLB using CMake:
 
 ```bash
 cmake .. -DCMAKE_BUILD_TYPE=Release
 ```
-### Compile HemeLB
+
+Compile the source code:
 
 ```bash
 make -j$(nproc)
 ```
 
-After `make` finishes, check that the compilation completed successfully.
+---
+
+## 4. Prepare the Simulation
+
+Create a directory for the simulation:
 
 ```bash
-ls
+mkdir -p ~/hemelb_runs/test_case
+cd ~/hemelb_runs/test_case
 ```
 
-Look for the HemeLB executable and other generated build files.
+A simulation directory contains the required input files:
+
+```text
+test_case/
+├── input.xml
+└── geometry.gmy
+```
+
+### Input Files
+
+| File | Purpose |
+|---|---|
+| `input.xml` | Contains the simulation configuration |
+| `geometry.gmy` | Contains the computational geometry |
 
 ---
+
+## 5. Run HemeLB
+
+Run HemeLB using MPI:
+
+```bash
+mpirun -n 4 hemelb -in input.xml -out ./output/
+```
+
+Where:
+
+- `-n 4` specifies 4 MPI processes.
+- `-in input.xml` specifies the input file.
+- `-out ./output/` specifies where the simulation results are saved.
+
+---
+
+## 6. HemeLB Workflow
+
+```text
+Clone HemeLB
+     ↓
+Create build directory
+     ↓
+Configure with CMake
+     ↓
+Compile
+     ↓
+Prepare input.xml and geometry.gmy
+     ↓
+Run with MPI
+     ↓
+View output
+```
