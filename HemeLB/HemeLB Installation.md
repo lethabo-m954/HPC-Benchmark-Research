@@ -86,50 +86,64 @@ mkdir -p ~/hemelb_runs/test_case
 cd ~/hemelb_runs/test_case
 ```
 
-A simulation directory contains the files required to configure and run a HemeLB simulation.
-
-For example:
+A simulation directory contains the required input files:
 
 ```text
 test_case/
-├── simulation.dat
 ├── input.xml
-└── geometry.gmy
+├── geometry.gmy
+└── velocity.dat
+```
+
+### `velocity.dat`
+
+The `.dat` file contains the velocity profile used by the simulation. It defines the velocity at specific points in time.
+
+Example:
+
+```text
+# time(s)   velocity(m/s)
+0.0         0.05
+0.1         0.10
+0.2         0.15
+```
+
+The first column represents **time in seconds (s)**, and the second column represents **velocity in meters per second (m/s)**.
+
+> **Note:** Modify the velocity profile to match your experiment. All units must be in SI units, including **seconds (s)** for time and **meters per second (m/s)** for velocity.
+
+### `input.xml`
+
+The `input.xml` file contains the configuration settings for the HemeLB simulation.
+
+The values in this file should be modified according to the requirements of the experiment.
+
+Example:
+
+```xml
+<hemelbsettings>
+  <geometry>geometry.gmy</geometry>
+  <initialconditions>
+    <velocity>0.1</velocity>
+  </initialconditions>
+  <simulation>
+    <timesteps>10000</timesteps>
+    <outputfrequency>100</outputfrequency>
+  </simulation>
+  <analysis>
+    <extractor type="Velocity" location="all" />
+    <extractor type="Pressure" location="all" />
+  </analysis>
+</hemelbsettings>
 ```
 
 ### Simulation Files
 
 | File | Purpose |
 |---|---|
-| `simulation.dat` | Contains the parameters and settings required for the simulation. |
-| `input.xml` | Contains the configuration information used by the simulation. |
-| `geometry.gmy` | Contains the computational geometry used by HemeLB. |
-
-### `.dat` File
-
-The `.dat` file is a simulation input file. It contains parameters and settings that define how the HemeLB simulation should be performed.
-
-The `.dat` file must be available in the appropriate simulation directory before running the simulation.
-
-Copy the `.dat` file into the simulation directory:
-
-```bash
-cp /path/to/simulation.dat ~/hemelb_runs/test_case/
-```
-
-Replace `/path/to/simulation.dat` with the actual location of the `.dat` file.
-
-Check that the file has been copied successfully:
-
-```bash
-ls
-```
-
-The `ls` command lists the files in the current directory. The `.dat` file should appear in the list.
-
-> **Note:** The exact files required for a simulation depend on the HemeLB version and the simulation setup being used.
-
----
+| `input.xml` | Contains the configuration settings for the HemeLB simulation. |
+| `geometry.gmy` | Contains the computational geometry used by the simulation. |
+| `velocity.dat` | Contains the velocity profile, with time and velocity values. |
 
 ## 6. Run HemeLB
 
