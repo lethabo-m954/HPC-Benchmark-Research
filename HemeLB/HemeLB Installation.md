@@ -189,8 +189,33 @@ mpirun -n 4 hemelb -in input.xml -out ./output/
 MPI allows the HemeLB simulation to run across multiple processes at the same time. This is important for HPC systems because simulations can be distributed across multiple CPU cores or compute nodes.
 
 ---
+## 7. Check the Results
+After the simulation finishes:
+```bash
+ls output/
+```
+To see all generated files:
+```bash
+find output/ -type f
+```
+## 8. Visualize Results with ParaView
+Copy the output file
+Open the results in **ParaView:**
+1. Open Parview.
+2. Select **File** and go to **Open**
+3. Select the HemeLB output file.
+4. Click **Apply**
+5. Select **Velocity** or **Pressure** to view the results.
+6. Use the 3D controls to rotate and zoom.
+7. Use **Play** to view changes over time if multiple time steps were generated
 
-## 7. HemeLB Workflow
+### Results to Analyse:
+1. **Velocity-** how fast the blood is moving.
+2. **Pressure-** how pressure changes through the geometry
+3. **Flow patterns-** how the blood moves through the geometry.
+4. **Time changes-** how velocity and pressure change during the simulation
+
+## 9. HemeLB Workflow
 
 The general HemeLB workflow is:
 
