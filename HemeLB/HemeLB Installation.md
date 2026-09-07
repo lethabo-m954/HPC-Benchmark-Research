@@ -278,7 +278,9 @@ sudo apt install -y python3-numpy
 ```bash
 PYTHONPATH=~/hemelb/python-tools python3 -m hlb.converters.ExtractedPropertyTextDump ./output/
 ```
+
 Once this script finishes processing, individual tracking files will populate inside the `./output/Extracted/` subdirectory.
+
 ---
 
 ## 8. Visualize Results with ParaView
