@@ -133,22 +133,91 @@ The values in this file should be modified according to the requirements of the 
 
 Example:
 
-```xml
-<hemelbsettings>
-  <geometry>geometry.gmy</geometry>
-  <initialconditions>
-    <velocity>0.1</velocity>
-  </initialconditions>
+``xml
+<?xml version="1.0"?>
+<hemelbsettings version="5">
   <simulation>
-    <timesteps>10000</timesteps>
-    <outputfrequency>100</outputfrequency>
+    <step_length units="s" value="1e-5"/>
+    <steps units="lattice" value="50000"/>
+    <stresstype value="1"/>
+    <voxel_size units="m" value="5e-5"/>
+    <origin units="m" value="(0.0,0.0,0.0)"/>
   </simulation>
-  <analysis>
-    <extractor type="Velocity" location="all" />
-    <extractor type="Pressure" location="all" />
-  </analysis>
+  
+  <geometry>
+    <datafile path="large_cylinder.gmy"/>
+  </geometry>
+<initialconditions>
+    <pressure>
+      <uniform units="mmHg" value="0.0"/>
+    </pressure>
+  </initialconditions>
+
+  <inlets>
+    <inlet>
+      <condition type="pressure" subtype="cosine">
+        <amplitude value="0" units="mmHg" />
+        <mean value="0" units="mmHg" />
+        <phase value="0" units="rad" />
+        <period value="1" units="s" />
+      </condition>
+      <normal units="dimensionless" value="(0.0,0.0,1.0)" />
+      <position units="m" value="(0.0,0.0,-2.4e-5)" />
+    </inlet>
+  </inlets>
+
+  <outlets>
+    <outlet>
+      <condition type="pressure" subtype="cosine">
+        <amplitude value="0" units="mmHg" />
+        <mean value="0" units="mmHg" />
+        <phase value="0" units="rad" />
+        <period value="1" units="s" />
+      </condition>
+      <normal units="dimensionless" value="(0.0,0.0,-1.0)" />
+      <position units="m" value="(0.0,0.0,2.4e-5)" />
+    </outlet>
+  </outlets>
+
+  <visualisation>
+    <centre units="m" value="(0.0,0.0,0.0)" />
+    <orientation>
+      <longitude units="deg" value="45.0" />
+      <latitude units="deg" value="45.0" />
+    </orientation>
+    <display brightness="0.03" zoom="1.0" />
+    <range>
+      <maxvelocity units="m/s" value="0.1" />
+      <maxstress units="Pa" value="0.1" />
+    </range>
+  </visualisation>
+  
+<initialconditions>
+    <pressure>
+      <uniform units="mmHg" value="0.0" />
+    </pressure>
+  </initialconditions>
+
+  <monitoring>
+    <incompressibility/>
+  </monitoring>
+
+  <properties>
+    <property type="Velocity">
+      <geometry type="All"/>
+      <output path="Extracted/velocity.dat"/>
+      <period value="100"/>
+    </property>
+    <property type="Pressure">
+      <geometry type="All"/>
+      <output path="Extracted/pressure.dat"/>
+      <period value="100"/>
+    </property>
+  </properties>
 </hemelbsettings>
 ```
+
+---
 > **Note:** Modify the following settings according to your experiment:
 >
 > 1. Ensure `<datafile path=...>` points exactly to your `.gmy` file name.
@@ -213,7 +282,6 @@ sudo apt install -y python3-numpy
 PYTHONPATH=~/hemelb/python-tools python3 -m hlb.converters.ExtractedPropertyTextDump ./output/
 ```
 Once this script finishes processing, individual tracking files will populate inside the `./output/Extracted/` subdirectory.
-
 ---
 
 ## 8. Visualize Results with ParaView
