@@ -2,15 +2,14 @@
 
 This guide explains how to install the required dependencies, download HemeLB, compile the source code, and run a HemeLB simulation on an HPC system.
 
-## 1. Update the System (On all nodes)
+## 1. Update the System 
 
-Update the system package list:
+Update the system package list(On all nodes):
 
 ```bash
 sudo apt update
 ```
 
----
 
 ## 2. Install HemeLB Dependencies
 
@@ -41,7 +40,11 @@ OpenMPI and OpenBLAS were already installed as part of the HPC environment and t
 
 ## 3. Clone HemeLB
 
-Download the HemeLB source code:
+Download the HemeLB source code (Compute 1):
+Ensure your compiler environment is active
+```bash
+module load gcc/system
+```
 
 ```bash
 git clone https://github.com/hemelb-codes/hemelb.git
