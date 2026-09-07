@@ -2,7 +2,7 @@
 
 This guide explains how to install the required dependencies, download HemeLB, compile the source code, and run a HemeLB simulation on an HPC system.
 
-## 1. Update the System
+## 1. Update the System (On all nodes)
 
 Update the system package list:
 
