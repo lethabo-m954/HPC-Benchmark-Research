@@ -29,6 +29,7 @@ sudo apt install -y build-essential cmake git \
 | `git` | Downloads the HemeLB source code |
 | `libboost-all-dev` | Provides Boost C++ libraries |
 | `libtinyxml2-dev` | Provides XML parsing functionality |
+| `libtinyxml-dev` | Provides XML v1 parsing functionality (Required by HemeLB sub-modules) |
 | `libparmetis-dev` | Provides ParMETIS development libraries |
 | `libmetis-dev` | Provides METIS development libraries. |
 
@@ -80,6 +81,11 @@ make -j$(nproc)
 Once the compilation completes successfully, run the install step to gather all binaries into that clean path:
 ```bash
 make install
+
+```
+### Verify your compilation
+'''bash
+ls -l ~/hemelb/build/hemelb-prefix/src/hemelb-build/
 ```
 
 ---
@@ -145,9 +151,9 @@ Example:
 ```
 > **Note:** Modify the following settings according to your experiment:
 >
-> 1. Change `<geometry>` to point to your `.gmy` file.
-> 2. Adjust `<timesteps>` for the required simulation length.
-> 3. Add or remove `<extractor>` entries to control what data is written out.
+> 1. Ensure `<datafile path=...>` points exactly to your `.gmy` file name.
+> 2. Ensure `<hemelbsettings version="5">` is declared at the root tag.
+> 3. Clean out the target output folder before running, as HemeLB will abort execution if the destination folder already exists.
 
 ### `geometry.gmy`
 
@@ -155,55 +161,61 @@ The `geometry.gmy` file contains the computational geometry used by the HemeLB s
 
 The `.gmy` file is normally **not modified manually**. It is generated from the required geometry and then referenced in the `input.xml` file.
 
-For example, in `input.xml`:
-
-```xml
-<geometry>geometry.gmy</geometry>
-```
-
-> **Note:** If you need to use a different geometry, generate a new `.gmy` file from the required geometry and update the `<geometry>` entry in `input.xml` to point to the new file.
-
-
-### Simulation Files
-
-| File | Purpose |
-|---|---|
-| `input.xml` | Contains the configuration settings for the HemeLB simulation. |
-| `geometry.gmy` | Contains the computational geometry used by the simulation. |
-| `velocity.dat` | Contains the velocity profile, with time and velocity values. |
-
 ## 6. Run HemeLB
+Before running the simulation, you must configure your cluster shortcuts and host specifications (**On the Headnode**).
 
-Once HemeLB has been compiled and the required simulation files have been prepared, the simulation can be run using MPI.
-
-Example:
-
+### Step A: Create a System Shortcut for HemeLB
+Instead of typing the long internal build path, link the binary to a clean home file target:
 ```bash
-mpirun -n 4 hemelb -in input.xml -out ./output/
+ln -s /home/ubuntu/hemelb/build/hemelb-prefix/src/hemelb-build/hemelb ~/hemelb_exe
 ```
 
-### Command Explanation
+### Step B: Configure your MPI Cluster Hostfile
+Create or edit your local cluster host profile mapping available computing blocks:
+```bash
+nano ~/hosts
+```
+Paste your resource framework layout inside:
+```text
+10.100.0.10 slots=2
+10.100.0.11 slots=4
+10.100.0.12 slots=4
+```
 
-| Command/Option | Purpose |
-|---|---|
-| `mpirun` | Starts the HemeLB program using MPI for parallel execution. |
-| `-n 4` | Specifies that 4 MPI processes should be used. |
-| `hemelb` | Runs the HemeLB executable. |
-| `-in input.xml` | Specifies the input configuration file. |
-| `-out ./output/` | Specifies the directory where the simulation output should be stored. |
+To run the simulation across multi-node infrastructure, you must use your compiled OpenMPI pathways and pass tracking variables ('x') to cleanly bypass PMIx system validation roadblocks (Run from the headnode)
 
-MPI allows the HemeLB simulation to run across multiple processes at the same time. This is important for HPC systems because simulations can be distributed across multiple CPU cores or compute nodes.
+> 1. Always remove any existing output directory before starting a sun
+```bash
+rm -rf ./output
+```
+> 2. Run the simulation targeting your compute nodes directly
+
+'''bash
+/home/ubuntu/opt/openmpi/bin/mpirun \
+  -x PATH=/home/ubuntu/opt/openmpi/bin:$PATH \
+  -x LD_LIBRARY_PATH=/home/ubuntu/opt/openmpi/lib:/home/ubuntu/opt/openblas/lib:$LD_LIBRARY_PATH \
+  --host 10.100.0.11:4,10.100.0.12:4 \
+  -n 8 \
+  /home/ubuntu/hemelb/build/hemelb-prefix/src/hemelb-build/hemelb \
+  -in input.xml -out ./output/
+```
+## 7. Post-Processing: Extracting Simulation Data
+
+HemeLB writes fluid mechanics data dynamically into heavily compressed binary archive streams inside your `output/` directory. To unpack these files into human-readable tables, ensure **python3-numpy** is installed and invoke the Python extraction tool (**On the Headnode**):
+
+
+# 1. Ensure NumPy is active on the system
+```bash
+sudo apt install -y python3-numpy
+```
+# 2. Extract raw data logs into clean text dump tracking lists
+```bash
+PYTHONPATH=~/hemelb/python-tools python3 -m hlb.converters.ExtractedPropertyTextDump ./output/
+```
+Once this script finishes processing, individual tracking files will populate inside the `./output/Extracted/` subdirectory.
 
 ---
-## 7. Check the Results
-After the simulation finishes:
-```bash
-ls output/
-```
-To see all generated files:
-```bash
-find output/ -type f
-```
+
 ## 8. Visualize Results with ParaView
 Copy the output file
 Open the results in **ParaView:**
