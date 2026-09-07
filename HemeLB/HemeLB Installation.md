@@ -41,11 +41,12 @@ OpenMPI and OpenBLAS were already installed as part of the HPC environment and t
 ## 3. Clone HemeLB
 
 Download the HemeLB source code (Compute 1):
+
 Ensure your compiler environment is active
 ```bash
 module load gcc/system
 ```
-
+Download and build HemeLB
 ```bash
 git clone https://github.com/hemelb-codes/hemelb.git
 ```
@@ -78,12 +79,16 @@ Compile HemeLB:
 ```bash
 make -j$(nproc)
 ```
+Once the compilation completes successfully, run the install step to gather all binaries into that clean path:
+```bash
+make install
+```
 
 ---
 
 ## 5. Prepare the Simulation
 
-Create a directory for the simulation:
+Create a directory for the simulation (On your headnode):
 
 ```bash
 mkdir -p ~/hemelb_runs/test_case
