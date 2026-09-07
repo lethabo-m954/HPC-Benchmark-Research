@@ -81,13 +81,11 @@ make -j$(nproc)
 Once the compilation completes successfully, run the install step to gather all binaries into that clean path:
 ```bash
 make install
-
 ```
 ### Verify your compilation
-'''bash
+```bash
 ls -l ~/hemelb/build/hemelb-prefix/src/hemelb-build/
 ```
-
 ---
 
 ## 5. Prepare the Simulation
