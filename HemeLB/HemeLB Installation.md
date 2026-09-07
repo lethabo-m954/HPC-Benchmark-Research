@@ -259,14 +259,13 @@ rm -rf ./output
 ```
 > 2. Run the simulation targeting your compute nodes directly
 
-'''bash
+```bash
 /home/ubuntu/opt/openmpi/bin/mpirun \
   -x PATH=/home/ubuntu/opt/openmpi/bin:$PATH \
   -x LD_LIBRARY_PATH=/home/ubuntu/opt/openmpi/lib:/home/ubuntu/opt/openblas/lib:$LD_LIBRARY_PATH \
   --host 10.100.0.11:4,10.100.0.12:4 \
   -n 8 \
-  /home/ubuntu/hemelb/build/hemelb-prefix/src/hemelb-build/hemelb \
-  -in input.xml -out ./output/
+  ~/hemelb_exe -in input.xml -out ./output/
 ```
 ## 7. Post-Processing: Extracting Simulation Data
 
