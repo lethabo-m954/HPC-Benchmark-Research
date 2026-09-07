@@ -17,7 +17,7 @@ Install the basic development tools and libraries required to build HemeLB:
 
 ```bash
 sudo apt install -y build-essential cmake git \
-    libboost-all-dev libtinyxml2-dev \
+    libboost-all-dev libtinyxml2-dev libtinyxml-dev \
     libparmetis-dev libmetis-dev
 ```
 ### What are these dependencies?
@@ -52,7 +52,6 @@ git clone https://github.com/hemelb-codes/hemelb.git
 ```
 
 Move into the HemeLB directory:
-
 ```bash
 cd hemelb
 ```
@@ -75,7 +74,6 @@ cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/hemelb/install
 ```
 
 Compile HemeLB:
-
 ```bash
 make -j$(nproc)
 ```
