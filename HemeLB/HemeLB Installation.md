@@ -270,11 +270,11 @@ rm -rf ./output
 HemeLB writes fluid mechanics data dynamically into heavily compressed binary archive streams inside your `output/` directory. To unpack these files into human-readable tables, ensure **python3-numpy** is installed and invoke the Python extraction tool (**On the Headnode**):
 
 
-# 1. Ensure NumPy is active on the system
+### 1. Ensure NumPy is active on the system
 ```bash
 sudo apt install -y python3-numpy
 ```
-# 2. Extract raw data logs into clean text dump tracking lists
+### 2. Extract raw data logs into clean text dump tracking lists
 ```bash
 PYTHONPATH=~/hemelb/python-tools python3 -m hlb.converters.ExtractedPropertyTextDump ./output/
 ```
